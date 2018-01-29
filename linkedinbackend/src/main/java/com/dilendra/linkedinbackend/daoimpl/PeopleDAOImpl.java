@@ -97,8 +97,8 @@ public class PeopleDAOImpl implements PeopleDAO {
 
 		driver.get("https://www.linkedin.com");
 
-		driver.findElement(By.xpath("//input[@id='login-email']")).sendKeys("pant.dilendra@gmail.com");
-		driver.findElement(By.xpath("//input[@id='login-password']")).sendKeys("09828206054");
+		driver.findElement(By.xpath("//input[@id='login-email']")).sendKeys("pantdilendra@gmail.com");
+		driver.findElement(By.xpath("//input[@id='login-password']")).sendKeys("*********");
 		driver.findElement(By.xpath("//input[@id='login-submit']")).click();
 		driver.get(URL);
 
