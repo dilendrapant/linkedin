@@ -82,7 +82,6 @@ public class PeopleDAOImpl implements PeopleDAO {
 
 	@Override
 	public void fetchData(String URL) {
-		
 	
 		String Profile = null;
 		String Experience = null;
