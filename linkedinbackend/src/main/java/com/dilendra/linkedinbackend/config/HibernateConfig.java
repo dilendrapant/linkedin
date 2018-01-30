@@ -50,7 +50,7 @@ public class HibernateConfig {
 		LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource);
 		
 		builder.addProperties(getHibernateProperties());
-		builder.scanPackages("net.kzn.shoppingbackend.dto");
+		builder.scanPackages("com.dilendra.linkedinbackend.dto");
 		
 		return builder.buildSessionFactory();
 		
