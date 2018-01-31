@@ -8,7 +8,5 @@ json CLOB,
 profile CLOB,
 url varchar(100),
 isactive boolean,
-CONSTRAINT pk_category_id PRIMARY KEY (id)
-
-
+CONSTRAINT pk_people_id PRIMARY KEY (id)
 );

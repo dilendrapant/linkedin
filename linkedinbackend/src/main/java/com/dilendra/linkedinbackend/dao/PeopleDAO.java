@@ -6,13 +6,14 @@ import com.dilendra.linkedinbackend.dto.People;
 
 public interface PeopleDAO {
 
-	void fetchData(String URL);
-
 	boolean add(People people);
 
 	boolean delete(People people);
 
+	People get(int id);
+
 	List<People> list();
+
 	boolean update(People people);
 
 }
