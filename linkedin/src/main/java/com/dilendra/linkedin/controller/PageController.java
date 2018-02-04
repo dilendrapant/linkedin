@@ -82,6 +82,8 @@ public class PageController {
 				String URL = "https://www.linkedin.com/in/" + urlList.get(i);
 
 				driver.get(URL);
+				
+				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
 				WebElement name = driver.findElement(By.cssSelector("h1"));
 				System.out.println(name.getText());
@@ -232,7 +234,7 @@ public class PageController {
 	}
 
 	@RequestMapping(value = "/show/people/{id}/peoples")
-	public ModelAndView showCategoryPeoples(@PathVariable("id") int id) {
+	public ModelAndView showPeoples(@PathVariable("id") int id) {
 		ModelAndView mv = new ModelAndView("page");
 
 		// fetch a single people

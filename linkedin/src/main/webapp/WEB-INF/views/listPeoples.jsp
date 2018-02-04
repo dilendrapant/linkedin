@@ -32,16 +32,22 @@
 					</c:if>
 					
 					
-					<c:if test="${userClickCategoryProducts == true}">
+					<c:if test="${userClickPeoplePeoples == true}">
 						<ol class="breadcrumb">
 
-
-							<li><a href="${contextRoot}/home">Home</a></li>
-							<li class="active">Category</li>
-							<li class="active">${category.name}</li>
+						<li><a href="${contextRoot}/home">Home</a></li>
+							<li class="active">Peoples</li>
+							<li class="active">${people.id}</li>
+							<li class="active">${people.name}</li>
+							<li class="active">${people.education}</li>
+							<li class="active">${people.experience}</li>
+							<li class="active">${people.profile}</li>
+													
 
 
 						</ol>
+						 Lnkedin <a> ${people.url}</a>
+						
 					</c:if>
 					
 
