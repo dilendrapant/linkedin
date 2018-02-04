@@ -65,8 +65,8 @@ public class PageController {
 					"D:\\SpringWorkspace\\linkedinAutomation\\linkedin\\chromedriver.exe");
 
 			driver = new FirefoxDriver();
-
-			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+//
+//			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 			driver.get("https://www.linkedin.com");
 
@@ -85,128 +85,135 @@ public class PageController {
 
 				WebElement name = driver.findElement(By.cssSelector("h1"));
 				System.out.println(name.getText());
-				String[] arr = driver.findElement(By.cssSelector("body")).getText().split("\n");
-				String regex = "^[0-9]+.*";
 
-				int ii = 0;
-				int j = 0;
-				int k = 0;
-				int x = 0;
-				int y = 0;
-				int z = 0;
+				if (name.getText().equals("This profile is not available")) {
+					System.out.println("This profile is not available");
+				}
 
-				for (String all : arr) {
+				else {
+					String[] arr = driver.findElement(By.cssSelector("body")).getText().split("\n");
+					String regex = "^[0-9]+.*";
 
-					if (all.equals(name.getText())) {
-						++ii;
+					int ii = 0;
+					int j = 0;
+					int k = 0;
+					int x = 0;
+					int y = 0;
+					int z = 0;
 
-					}
+					for (String all : arr) {
 
-					else {
+						if (all.equals(name.getText())) {
+							++ii;
 
-						if (ii >= 1) {
+						}
 
-							if (Pattern.matches(regex, all)) {
+						else {
 
-								++j;
-							} else {
-								if (j >= 1) {
+							if (ii >= 1) {
 
-									if (all.equals("Send InMail")) {
+								if (Pattern.matches(regex, all)) {
 
-										++k;
+									++j;
+								} else {
+									if (j >= 1) {
 
-									} else {
-										if (k < 1) {
+										if (all.equals("Send InMail")) {
 
-											Profile += "\n" + all;
-										}
-										if (k >= 1) {
+											++k;
 
-											if (all.equals("Experience")) {
-												++x;
+										} else {
+											if (k < 1) {
 
-											} else {
-												if (x >= 1 && !all.equals("Show more positions")) {
+												Profile += "\n" + all;
+											}
+											if (k >= 1) {
 
-													if (all.equals("Education")) {
-														++y;
-													} else {
-														if (y < 1) {
-															Experience += "\n" + all;
-														}
+												if (all.equals("Experience")) {
+													++x;
 
-														if (y >= 1) {
+												} else {
+													if (x >= 1 && !all.equals("Show more positions")) {
 
-															if (all.equals("Show more education")) {
-																++z;
-															} else {
+														if (all.equals("Education")) {
+															++y;
+														} else {
+															if (y < 1) {
+																Experience += "\n" + all;
+															}
 
-																if (z < 1) {
-																	Education += "\n" + all;
+															if (y >= 1) {
+
+																if (all.equals("Show more education")) {
+																	++z;
+																} else {
+
+																	if (z < 1) {
+																		Education += "\n" + all;
+																	}
+
 																}
 
 															}
 
 														}
-
 													}
+
 												}
 
 											}
-
 										}
-									}
 
+									}
 								}
+
 							}
 
 						}
 
 					}
 
-				}
+					people = new People();
+					System.out.println("Set people fields");
+					if (Education != null) {
+						people.setEducation(Education.substring(4));
+						Education = null;
+					} else {
+						people.setEducation(Education);
+					}
+					if (Experience != null) {
+						people.setExperience(Experience.substring(4));
+						Experience = null;
+					} else {
+						people.setEducation(Experience);
+					}
 
-				people = new People();
-				System.out.println("Set people fields");
-				if(Education!=null){
-				people.setEducation(Education.substring(4));
-				}
-				else{
-					people.setEducation(Education);
-				}
-				if(Experience!=null){
-				people.setExperience(Experience.substring(4));
-				}
-				else{
-					people.setEducation(Experience);
-				}
-				
-				if(Profile!=null){
-					people.setProfile(Profile.substring(4));
-				}
-				else{
-					people.setProfile(Profile);
-				}
-				people.setUrl(URL);
-				people.setIsactive(true);
-				people.setName(name.getText());
+					if (Profile != null) {
+						people.setProfile(Profile.substring(4));
+						Profile = null;
+					} else {
+						people.setProfile(Profile);
+					}
+					people.setUrl(URL);
+					people.setIsactive(true);
+					people.setName(name.getText());
 
-				// Convert String to JSON
+					// Convert String to JSON
 
-				Gson g = new Gson();
-				System.out.println("Json ...");
-				String Json = g.toJson(people);
-				people.setJson(Json);
-				System.out.println("Net is update on database...");
-				peopleDAO.add(people);
-				people = null;
+					Gson g = new Gson();
+					System.out.println("Json ...");
+					String Json = g.toJson(people);
+					people.setJson(Json);
+
+					peopleDAO.add(people);
+					people = null;
+
+				}
 
 			}
 			System.out.println("Execution Completed");
 
 		}
-		
 
 		System.out.println("Empty fields plz check.... ");
 
