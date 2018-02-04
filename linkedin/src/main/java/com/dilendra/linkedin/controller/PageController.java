@@ -73,19 +73,18 @@ public class PageController {
 			driver.findElement(By.xpath("//input[@id='login-email']")).sendKeys(email);
 			driver.findElement(By.xpath("//input[@id='login-password']")).sendKeys(password);
 			driver.findElement(By.xpath("//input[@id='login-submit']")).click();
+			String Profile = null;
+			String Experience = null;
+			String Education = null;
 
 			for (int i = 0; i < urlList.size(); i++) {
-
-				String Profile = null;
-				String Experience = null;
-				String Education = null;
 
 				String URL = "https://www.linkedin.com/in/" + urlList.get(i);
 
 				driver.get(URL);
 
-				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-				WebElement name = driver.findElement(By.cssSelector(".pv-top-card-section__name"));
+				WebElement name = driver.findElement(By.cssSelector("h1"));
+				System.out.println(name.getText());
 				String[] arr = driver.findElement(By.cssSelector("body")).getText().split("\n");
 				String regex = "^[0-9]+.*";
 
@@ -167,11 +166,28 @@ public class PageController {
 					}
 
 				}
-				people = null;
+
 				people = new People();
+				System.out.println("Set people fields");
+				if(Education!=null){
 				people.setEducation(Education.substring(4));
+				}
+				else{
+					people.setEducation(Education);
+				}
+				if(Experience!=null){
 				people.setExperience(Experience.substring(4));
-				people.setProfile(Profile.substring(4));
+				}
+				else{
+					people.setEducation(Experience);
+				}
+				
+				if(Profile!=null){
+					people.setProfile(Profile.substring(4));
+				}
+				else{
+					people.setProfile(Profile);
+				}
 				people.setUrl(URL);
 				people.setIsactive(true);
 				people.setName(name.getText());
@@ -179,10 +195,12 @@ public class PageController {
 				// Convert String to JSON
 
 				Gson g = new Gson();
+				System.out.println("Json ...");
 				String Json = g.toJson(people);
 				people.setJson(Json);
-
+				System.out.println("Net is update on database...");
 				peopleDAO.add(people);
+				people = null;
 
 			}
 			System.out.println("Execution Completed");

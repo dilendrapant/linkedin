@@ -13,19 +13,16 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li id="addUrl"><a>
-						<form action="addUrl" method="post" onsubmit="return false;"id="addUrlForm">
-							<a style="color: blue;">Add Profile </a> Email: <input
-								type="text" name=email placeholder="Your LinkedinID/Email">
-							Password: <input type="password" name=password
-								placeholder="password"> Linkedin_User_ID : <input
-								type="text" name=urls placeholder="eg. pant,Manoj,ab-cd">
-							<input type="submit" value="Next">
-						</form>
-				</a></li>
 
-			</ul>
+			<form action="addUrl" method="post" sid="addUrlForm">
+				<a style="color: blue;">Add Profile </a> Email: <input type="text"
+					name=email placeholder="Your LinkedinID/Email"> Password: <input
+					type="password" name=password placeholder="password">
+				Linkedin_User_ID : <input type="text" name=urls
+					placeholder="eg. pant,Manoj,ab-cd"> <input type="submit"
+					value="Next">
+			</form>
+
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>
